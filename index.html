@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ElectroHacker – EEE Hackathon 2026 | PT Lee Chengalvaraya Naicker College</title>
+  <meta name="description"
+    content="ElectroHacker 2026 – A high-energy hackathon organized by the Department of Electrical and Electronics Engineering at PT Lee Chengalvaraya Naicker College of Engineering and Technology, Kancheepuram. Register now!" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&family=Rajdhani:wght@400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <style>
+    /* ─── CSS RESET & TOKENS ─── */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --navy: #0d1b3e;
+      --navy2: #112255;
+      --gold: #f5c519;
+      --gold2: #e6a800;
+      --green: #2db84b;
+      --green2: #1a9138;
+      --white: #ffffff;
+      --offwhite: #e8eef8;
+      --accent: #00e5ff;
+      --bg-dark: #080f22;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--white);
+      overflow-x: hidden;
+    }
+
+    /* ─── ANIMATED GRID BACKGROUND ─── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0, 229, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 229, 255, 0.04) 1px, transparent 1px);
+      background-size: 50px 50px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ─── PARTICLE SPARKS ─── */
+    .sparks {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .spark {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      border-radius: 50%;
+      background: var(--gold);
+      animation: float linear infinite;
+      opacity: 0;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) translateX(0);
+        opacity: 0;
+      }
+
+      10% {
+        opacity: 1;
+      }
+
+      90% {
+        opacity: 0.8;
+      }
+
+      100% {
+        transform: translateY(-20px) translateX(var(--drift));
+        opacity: 0;
+      }
+    }
+
+    /* ─── HEADER ─── */
+    header {
+      position: relative;
+      z-index: 10;
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy2) 60%, #0a2040 100%);
+      border-bottom: 3px solid var(--gold);
+      padding: 18px 40px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 24px;
+      box-shadow: 0 4px 30px rgba(245, 197, 25, 0.25);
+    }
+
+    /* Small boxed logo */
+    .header-logo-box {
+      width: 72px;
+      height: 72px;
+      border: 2px solid var(--gold);
+      border-radius: 10px;
+      background: rgba(245, 197, 25, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px;
+      box-shadow: 0 0 16px rgba(245, 197, 25, 0.35), inset 0 0 10px rgba(245, 197, 25, 0.08);
+      animation: logoPulse 3s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+
+    .header-logo {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    @keyframes logoPulse {
+
+      0%,
+      100% {
+        box-shadow: 0 0 16px rgba(245, 197, 25, 0.35), inset 0 0 10px rgba(245, 197, 25, 0.08);
+      }
+
+      50% {
+        box-shadow: 0 0 28px rgba(245, 197, 25, 0.65), inset 0 0 14px rgba(245, 197, 25, 0.15);
+      }
+    }
+
+    .header-text {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      text-align: center;
+    }
+
+    .college-name {
+      font-family: 'Inter', sans-serif;
+      font-weight: 800;
+      font-size: clamp(0.82rem, 1.9vw, 1.15rem);
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      line-height: 1.35;
+      text-align: center;
+      text-shadow: 0 0 22px rgba(245, 197, 25, 0.5);
+    }
+
+    /* Department name bold bordered box */
+    .dept-name {
+      display: inline-block;
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 800;
+      font-size: clamp(0.72rem, 1.4vw, 0.9rem);
+      color: var(--green);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      text-align: center;
+      border: 2px solid var(--green);
+      border-radius: 8px;
+      padding: 10px 22px;
+      background: rgba(45, 184, 75, 0.08);
+      box-shadow: 0 0 15px rgba(45, 184, 75, 0.2);
+      line-height: 1.5;
+    }
+
+    /* ─── HERO SECTION ─── */
+    .hero {
+      position: relative;
+      z-index: 5;
+      width: 100%;
+      min-height: 75vh;
+      overflow: hidden;
+    }
+
+    .hero-image-wrap {
+      position: relative;
+      width: 100%;
+      height: 75vh;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+
+    /* Dark overlay with gradient */
+    .hero-image-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom,
+          rgba(8, 15, 34, 0.35) 0%,
+          rgba(8, 15, 34, 0.15) 40%,
+          rgba(8, 15, 34, 0.75) 80%,
+          rgba(8, 15, 34, 1) 100%);
+    }
+
+    /* Electric border top */
+    .hero-image-wrap::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--navy), var(--gold), var(--green), var(--gold), var(--navy));
+      z-index: 2;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      padding-bottom: 48px;
+      text-align: center;
+    }
+
+    .hero-badge {
+      background: linear-gradient(135deg, var(--green), var(--green2));
+      color: var(--white);
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 700;
+      font-size: 0.8rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 6px 20px;
+      border-radius: 50px;
+      margin-bottom: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      animation: badgePop 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    }
+
+    @keyframes badgePop {
+      from {
+        opacity: 0;
+        transform: scale(0.7) translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    .hero-title {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 900;
+      font-size: clamp(3rem, 10vw, 7.5rem);
+      line-height: 1;
+      background: linear-gradient(135deg, var(--gold) 0%, #fff8c0 40%, var(--gold2) 60%, var(--green) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: none;
+      filter: drop-shadow(0 0 40px rgba(245, 197, 25, 0.6));
+      animation: titleReveal 1s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s both;
+      letter-spacing: -0.02em;
+    }
+
+    @keyframes titleReveal {
+      from {
+        opacity: 0;
+        transform: scale(0.8) translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    /* Animated underline glow */
+    .hero-title-underline {
+      height: 3px;
+      width: 60%;
+      margin: 10px auto 20px;
+      background: linear-gradient(90deg, transparent, var(--gold), var(--green), var(--gold), transparent);
+      border-radius: 2px;
+      animation: shimmer 2.5s linear infinite;
+      background-size: 200% 100%;
+    }
+
+    @keyframes shimmer {
+      0% {
+        background-position: -200%;
+      }
+
+      100% {
+        background-position: 200%;
+      }
+    }
+
+    .hero-subtitle {
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 600;
+      font-size: clamp(0.9rem, 2.5vw, 1.3rem);
+      color: var(--offwhite);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 30px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 0.9s forwards;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .btn-register {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 48px;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--navy);
+      background: linear-gradient(135deg, var(--gold) 0%, #ffe066 50%, var(--gold2) 100%);
+      border-radius: 50px;
+      border: none;
+      position: relative;
+      overflow: hidden;
+      box-shadow:
+        0 0 20px rgba(245, 197, 25, 0.6),
+        0 0 60px rgba(245, 197, 25, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      animation: fadeUp 0.8s ease 1.1s both;
+      cursor: pointer;
+    }
+
+    .btn-register::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -60%;
+      width: 60%;
+      height: 200%;
+      background: rgba(255, 255, 255, 0.3);
+      transform: rotate(25deg);
+      transition: left 0.5s ease;
+    }
+
+    .btn-register:hover::before {
+      left: 120%;
+    }
+
+    .btn-register:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow:
+        0 0 30px rgba(245, 197, 25, 0.8),
+        0 0 80px rgba(245, 197, 25, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    }
+
+    .btn-register:active {
+      transform: translateY(0) scale(0.98);
+    }
+
+    .btn-icon {
+      font-size: 1.2rem;
+      animation: boltPulse 1.5s ease-in-out infinite;
+    }
+
+    @keyframes boltPulse {
+
+      0%,
+      100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.2);
+      }
+    }
+
+    /* ─── SECTION COMMON ─── */
+    section {
+      position: relative;
+      z-index: 5;
+    }
+
+    .section-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ─── DIVIDER ─── */
+    .electric-divider {
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg,
+          transparent 0%,
+          var(--gold) 20%,
+          var(--green) 50%,
+          var(--gold) 80%,
+          transparent 100%);
+      margin: 0;
+    }
+
+    /* ─── TIMELINE SECTION ─── */
+    .timeline-section {
+      padding: 80px 0 100px;
+      background: linear-gradient(180deg, var(--bg-dark) 0%, #0b1630 60%, var(--bg-dark) 100%);
+    }
+
+    .section-heading {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-heading h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      font-size: clamp(1.6rem, 4vw, 2.5rem);
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      text-shadow: 0 0 30px rgba(245, 197, 25, 0.5);
+    }
+
+    .section-heading p {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1rem;
+      color: var(--green);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-top: 8px;
+    }
+
+    /* ─── TIMELINE CARDS ─── */
+    .timeline-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 28px;
+    }
+
+    .timeline-card {
+      background: linear-gradient(145deg, rgba(17, 34, 85, 0.8), rgba(8, 15, 34, 0.9));
+      border: 1px solid rgba(245, 197, 25, 0.25);
+      border-radius: 16px;
+      padding: 32px 28px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .timeline-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      border-radius: 16px 16px 0 0;
+    }
+
+    .timeline-card.card-gold::before {
+      background: linear-gradient(90deg, var(--gold), #fff8a0);
+    }
+
+    .timeline-card.card-green::before {
+      background: linear-gradient(90deg, var(--green), #90ff9a);
+    }
+
+    .timeline-card.card-navy::before {
+      background: linear-gradient(90deg, var(--accent), var(--green));
+    }
+
+    .timeline-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(245, 197, 25, 0.6);
+      box-shadow: 0 16px 50px rgba(245, 197, 25, 0.15), 0 0 30px rgba(0, 229, 255, 0.05);
+    }
+
+    .card-step {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      font-size: 1.4rem;
+      margin-bottom: 18px;
+      position: relative;
+    }
+
+    .timeline-card.card-gold .card-step {
+      background: rgba(245, 197, 25, 0.15);
+      color: var(--gold);
+      border: 1.5px solid var(--gold);
+      box-shadow: 0 0 15px rgba(245, 197, 25, 0.3);
+    }
+
+    .timeline-card.card-green .card-step {
+      background: rgba(45, 184, 75, 0.15);
+      color: var(--green);
+      border: 1.5px solid var(--green);
+      box-shadow: 0 0 15px rgba(45, 184, 75, 0.3);
+    }
+
+    .timeline-card.card-navy .card-step {
+      background: rgba(0, 229, 255, 0.1);
+      color: var(--accent);
+      border: 1.5px solid var(--accent);
+      box-shadow: 0 0 15px rgba(0, 229, 255, 0.25);
+    }
+
+    .card-label {
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 600;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      margin-bottom: 8px;
+    }
+
+    .timeline-card.card-gold .card-label {
+      color: var(--gold);
+    }
+
+    .timeline-card.card-green .card-label {
+      color: var(--green);
+    }
+
+    .timeline-card.card-navy .card-label {
+      color: var(--accent);
+    }
+
+    .card-event {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 1.05rem;
+      color: var(--white);
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+
+    .card-date {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--offwhite);
+      letter-spacing: 0.05em;
+    }
+
+    .card-time {
+      display: block;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.85rem;
+      color: rgba(232, 238, 248, 0.6);
+      margin-top: 8px;
+      letter-spacing: 0.05em;
+    }
+
+    /* connector line */
+    .timeline-connector {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 8px 0;
+    }
+
+    .connector-line {
+      width: 2px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--gold), var(--green));
+      border-radius: 2px;
+      position: relative;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      position: relative;
+      z-index: 5;
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy2) 100%);
+      border-top: 2px solid var(--gold);
+      padding: 30px 40px;
+      text-align: center;
+    }
+
+    .footer-text {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.9rem;
+      color: rgba(232, 238, 248, 0.6);
+      letter-spacing: 0.05em;
+    }
+
+    .footer-text span {
+      color: var(--gold);
+    }
+
+    /* ─── SCROLLBAR ─── */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg-dark);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--gold);
+      border-radius: 4px;
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 768px) {
+      header {
+        padding: 16px 20px;
+        gap: 10px;
+      }
+
+      .header-logo-box {
+        width: 58px;
+        height: 58px;
+      }
+
+      .college-name {
+        font-size: 0.78rem;
+      }
+
+      .hero-image-wrap {
+        height: 55vh;
+      }
+
+      .hero-overlay {
+        padding-bottom: 32px;
+      }
+
+      .btn-register {
+        padding: 14px 32px;
+        font-size: 0.85rem;
+      }
+
+      .timeline-section {
+        padding: 60px 0 80px;
+      }
+
+      footer {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Floating spark particles -->
+  <div class="sparks" id="sparks"></div>
+
+  <!-- ═══════════════ HEADER ═══════════════ -->
+  <header>
+    <div class="header-logo-box">
+      <img src="logo.png" alt="PT Lee Chengalvaraya Naicker College Logo" class="header-logo" />
+    </div>
+    <div class="header-text">
+      <div class="college-name">
+        P.T. Lee Chengalvaraya Naicker College of Engineering and Technology,<br>Kancheepuram
+      </div>
+      <div class="dept-name">⚡ Organized by<br>the Department of Electrical and Electronics Engineering</div>
+    </div>
+  </header>
+
+  <!-- ═══════════════ HERO ═══════════════ -->
+  <section class="hero">
+    <div class="hero-image-wrap">
+      <img src="gate.jpg" alt="PT Lee Chengalvaraya Naicker College of Engineering entrance gate" />
+      <div class="hero-overlay">
+        <div class="hero-badge">⚡ EEE Department Presents</div>
+        <h1 class="hero-title">ElectroHacker</h1>
+        <div class="hero-title-underline"></div>
+        <p class="hero-subtitle">National Level Technical Hackathon · 2026</p>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSeeZ9AZ0MOQqdCH31u86B8zk-RxSDWGqC040WAs2ME2tI2AkQ/viewform?usp=header"
+          target="_blank" rel="noopener noreferrer" class="btn-register" id="register-now-btn">
+          <span class="btn-icon">⚡</span> Register Now
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <div class="electric-divider"></div>
+
+  <!-- ═══════════════ TIMELINE ═══════════════ -->
+  <section class="timeline-section">
+    <div class="section-inner">
+
+      <div class="section-heading">
+        <h2>⚡ Event Timeline</h2>
+        <p>Key Deadlines &amp; Schedule</p>
+      </div>
+
+      <div class="timeline-grid">
+
+        <!-- Card 1 -->
+        <div class="timeline-card card-gold">
+          <div class="card-step">🚀</div>
+          <div class="card-label">Phase 01</div>
+          <div class="card-event">Registration Opens</div>
+          <div class="card-date">📅 15 / 03 / 2026</div>
+          <span class="card-time">Applications are now open — don't miss out!</span>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="timeline-card card-green">
+          <div class="card-step">📄</div>
+          <div class="card-label">Phase 02</div>
+          <div class="card-event">Abstract Submission Closes</div>
+          <div class="card-date">📅 22 / 03 / 2026</div>
+          <span class="card-time">⏰ Deadline: 12:00 PM</span>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="timeline-card card-navy">
+          <div class="card-step">🏆</div>
+          <div class="card-label">Phase 03</div>
+          <div class="card-event">Shortlist Announcement</div>
+          <div class="card-date">📅 23 / 03 / 2026</div>
+          <span class="card-time">⏰ Results at: 06:00 PM</span>
+        </div>
+
+      </div><!-- /.timeline-grid -->
+
+      <!-- CTA repeat -->
+      <div style="text-align:center; margin-top: 56px;">
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSeeZ9AZ0MOQqdCH31u86B8zk-RxSDWGqC040WAs2ME2tI2AkQ/viewform?usp=header"
+          target="_blank" rel="noopener noreferrer" class="btn-register" id="register-now-btn-2">
+          <span class="btn-icon">⚡</span> Register Now — It's Free!
+        </a>
+        <p
+          style="margin-top:16px; font-family:'Rajdhani',sans-serif; font-size:0.9rem; color:rgba(232,238,248,0.5); letter-spacing:0.08em;">
+          Registration closes on 22 March 2026 at 12:00 PM
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════ FOOTER ═══════════════ -->
+  <footer>
+    <p class="footer-text">
+      &copy; 2026 <span>ElectroHacker</span> · Department of Electrical &amp; Electronics Engineering<br />
+      P.T. Lee Chengalvaraya Naicker College of Engineering and Technology, Kancheepuram
+    </p>
+  </footer>
+
+  <!-- ═══════════════ SCRIPTS ═══════════════ -->
+  <script>
+    // Generate floating spark particles
+    const sparksContainer = document.getElementById('sparks');
+    const colors = ['#f5c519', '#2db84b', '#00e5ff', '#ffffff'];
+    for (let i = 0; i < 45; i++) {
+      const spark = document.createElement('div');
+      spark.classList.add('spark');
+      spark.style.left = Math.random() * 100 + 'vw';
+      spark.style.animationDuration = (Math.random() * 10 + 8) + 's';
+      spark.style.animationDelay = (Math.random() * 12) + 's';
+      spark.style.setProperty('--drift', (Math.random() * 100 - 50) + 'px');
+      spark.style.background = colors[Math.floor(Math.random() * colors.length)];
+      const size = Math.random() * 3 + 1;
+      spark.style.width = size + 'px';
+      spark.style.height = size + 'px';
+      spark.style.boxShadow = `0 0 6px ${spark.style.background}`;
+      sparksContainer.appendChild(spark);
+    }
+
+    // Intersection Observer for card animation
+    const cards = document.querySelectorAll('.timeline-card');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, idx) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+          }, idx * 120);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    cards.forEach(card => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(40px)';
+      card.style.transition = 'opacity 0.6s ease, transform 0.6s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease, border-color 0.3s ease';
+      observer.observe(card);
+    });
+  </script>
+</body>
+
+</html>

@@ -148,21 +148,30 @@
       flex: 1;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      gap: 10px;
-      text-align: center;
+      align-items: flex-start;
+      gap: 4px;
+      text-align: left;
     }
 
     .college-name {
       font-family: 'Inter', sans-serif;
       font-weight: 800;
-      font-size: clamp(0.82rem, 1.9vw, 1.15rem);
+      font-size: clamp(0.75rem, 1.8vw, 1.05rem);
       color: var(--gold);
       text-transform: uppercase;
-      letter-spacing: 0.06em;
-      line-height: 1.35;
-      text-align: center;
-      text-shadow: 0 0 22px rgba(245, 197, 25, 0.5);
+      letter-spacing: 0.05em;
+      line-height: 1.3;
+      text-align: left;
+      text-shadow: 0 0 15px rgba(245, 197, 25, 0.4);
+    }
+
+    /* Sub-header for Department Box */
+    .sub-header {
+      background: rgba(8, 15, 34, 0.4);
+      padding: 15px 0;
+      display: flex;
+      justify-content: center;
+      border-bottom: 1px solid rgba(0, 229, 255, 0.1);
     }
 
     /* Department name bold bordered box */
@@ -170,76 +179,77 @@
       display: inline-block;
       font-family: 'Rajdhani', sans-serif;
       font-weight: 800;
-      font-size: clamp(0.72rem, 1.4vw, 0.9rem);
+      font-size: clamp(0.7rem, 1.3vw, 0.85rem);
       color: var(--green);
       text-transform: uppercase;
       letter-spacing: 0.12em;
       text-align: center;
       border: 2px solid var(--green);
       border-radius: 8px;
-      padding: 10px 22px;
+      padding: 10px 24px;
       background: rgba(45, 184, 75, 0.08);
       box-shadow: 0 0 15px rgba(45, 184, 75, 0.2);
-      line-height: 1.5;
+      line-height: 1.4;
     }
 
-    /* ─── HERO SECTION ─── */
+    /* ─── HERO SECTION (Redesigned for 'down' photo box) ─── */
     .hero {
       position: relative;
       z-index: 5;
       width: 100%;
-      min-height: 75vh;
-      overflow: hidden;
+      padding: 40px 0 80px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
     }
 
-    .hero-image-wrap {
+    .photo-box-wrap {
+      margin-bottom: 40px;
+      max-width: 900px;
+      width: 90%;
       position: relative;
-      width: 100%;
-      height: 75vh;
+      border-radius: 20px;
+      padding: 10px;
+      background: linear-gradient(135deg, var(--gold), var(--green));
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 20px rgba(45, 184, 75, 0.3);
+      animation: boxFadeIn 1s ease-out;
     }
 
-    .hero-image-wrap img {
+    @keyframes boxFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .photo-box {
+      width: 100%;
+      height: 450px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 3px solid var(--bg-dark);
+    }
+
+    .photo-box img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center;
       display: block;
     }
 
-    /* Dark overlay with gradient */
-    .hero-image-wrap::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to bottom,
-          rgba(8, 15, 34, 0.35) 0%,
-          rgba(8, 15, 34, 0.15) 40%,
-          rgba(8, 15, 34, 0.75) 80%,
-          rgba(8, 15, 34, 1) 100%);
-    }
-
-    /* Electric border top */
-    .hero-image-wrap::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: linear-gradient(90deg, var(--navy), var(--gold), var(--green), var(--gold), var(--navy));
-      z-index: 2;
-    }
-
     .hero-overlay {
-      position: absolute;
-      inset: 0;
+      position: relative;
       z-index: 3;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-end;
-      padding-bottom: 48px;
-      text-align: center;
+      padding: 0 20px;
     }
 
     .hero-badge {
@@ -705,24 +715,30 @@
       <div class="college-name">
         P.T. Lee Chengalvaraya Naicker College of Engineering and Technology,<br>Kancheepuram
       </div>
-      <div class="dept-name">⚡ Organized by<br>the Department of Electrical and Electronics Engineering</div>
     </div>
   </header>
 
+  <div class="sub-header">
+    <div class="dept-name">⚡ Organized by<br>the Department of Electrical and Electronics Engineering</div>
+  </div>
+
   <!-- ═══════════════ HERO ═══════════════ -->
   <section class="hero">
-    <div class="hero-image-wrap">
-      <img src="gate.jpg" alt="PT Lee Chengalvaraya Naicker College of Engineering entrance gate" />
-      <div class="hero-overlay">
-        <div class="hero-badge">⚡ EEE Department Presents</div>
-        <h1 class="hero-title">ElectroHacker</h1>
-        <div class="hero-title-underline"></div>
-        <p class="hero-subtitle">National Level Technical Hackathon · 2026</p>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSeeZ9AZ0MOQqdCH31u86B8zk-RxSDWGqC040WAs2ME2tI2AkQ/viewform?usp=header"
-          target="_blank" rel="noopener noreferrer" class="btn-register" id="register-now-btn">
-          <span class="btn-icon">⚡</span> Register Now
-        </a>
+    <div class="photo-box-wrap">
+      <div class="photo-box">
+        <img src="gate.jpg" alt="PT Lee Chengalvaraya Naicker College of Engineering entrance gate" />
       </div>
+    </div>
+
+    <div class="hero-overlay">
+      <div class="hero-badge">⚡ EEE Department Presents</div>
+      <h1 class="hero-title">ElectroHacker</h1>
+      <div class="hero-title-underline"></div>
+      <p class="hero-subtitle">National Level Technical Hackathon · 2026</p>
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSeeZ9AZ0MOQqdCH31u86B8zk-RxSDWGqC040WAs2ME2tI2AkQ/viewform?usp=header"
+        target="_blank" rel="noopener noreferrer" class="btn-register" id="register-now-btn">
+        <span class="btn-icon">⚡</span> Register Now
+      </a>
     </div>
   </section>
 

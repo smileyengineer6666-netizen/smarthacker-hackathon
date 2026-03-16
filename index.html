@@ -4,9 +4,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ELECTO HACKER – EEE Hackathon 2026 | PT Lee Chengalvaraya Naicker College</title>
+  <title>ELECTO HACK – EEE Hackathon 2026 | PT Lee Chengalvaraya Naicker College</title>
   <meta name="description"
-    content="ELECTO HACKER 2026 – A high-energy hackathon organized by the Department of Electrical and Electronics Engineering at PT Lee Chengalvaraya Naicker College of Engineering and Technology, Kancheepuram. Register now!" />
+    content="ELECTO HACK 2026 – A high-energy hackathon organized by the Department of Electrical and Electronics Engineering at PT Lee Chengalvaraya Naicker College of Engineering and Technology, Kancheepuram. Register now!" />
   <link
     href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&family=Rajdhani:wght@400;500;600;700&display=swap"
     rel="stylesheet" />
@@ -23,7 +23,7 @@
     :root {
       --navy: #0d1b3e;
       --navy2: #112255;
-      --gold: #f5c519;
+      --gold: #8ef519;
       --gold2: #e6a800;
       --green: #2db84b;
       --green2: #1a9138;
@@ -626,6 +626,77 @@
       position: relative;
     }
 
+    /* ─── DOMAIN SECTION ─── */
+    .domain-section {
+      padding: 80px 0;
+      background: linear-gradient(180deg, var(--bg-dark) 0%, #0a1025 100%);
+    }
+
+    .domain-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+      margin-top: 40px;
+    }
+
+    .domain-card {
+      background: rgba(13, 27, 62, 0.4);
+      border: 1px solid rgba(0, 229, 255, 0.15);
+      border-radius: 12px;
+      padding: 24px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(5px);
+    }
+
+    .domain-card:hover {
+      background: rgba(0, 229, 255, 0.05);
+      border-color: var(--accent);
+      transform: scale(1.02);
+      box-shadow: 0 0 20px rgba(0, 229, 255, 0.1);
+    }
+
+    .domain-icon {
+      font-size: 2rem;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .domain-name {
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--white);
+      letter-spacing: 0.05em;
+    }
+
+    .btn-download {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 50px;
+      padding: 14px 32px;
+      background: transparent;
+      border: 2px solid var(--accent);
+      color: var(--accent);
+      border-radius: 50px;
+      text-decoration: none;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 0.1em;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+    }
+
+    .btn-download:hover {
+      background: var(--accent);
+      color: var(--navy);
+      box-shadow: 0 0 30px rgba(0, 229, 255, 0.4);
+    }
+
     /* ─── FOOTER ─── */
     footer {
       position: relative;
@@ -664,21 +735,54 @@
     /* ─── RESPONSIVE ─── */
     @media (max-width: 768px) {
       header {
-        padding: 16px 20px;
-        gap: 10px;
+        padding: 15px;
+        flex-direction: column;
+        text-align: center;
+        gap: 12px;
       }
 
       .header-logo-box {
-        width: 58px;
-        height: 58px;
+        width: 64px;
+        height: 64px;
+      }
+
+      .header-text {
+        align-items: center;
       }
 
       .college-name {
-        font-size: 0.78rem;
+        font-size: 0.85rem;
+        text-align: center;
       }
 
-      .hero-image-wrap {
-        height: 55vh;
+      .hero {
+        padding: 20px 0 60px;
+      }
+
+      .photo-box-wrap {
+        width: 100%;
+        max-width: 100%;
+        border-radius: 0;
+        padding: 0;
+        border-left: none;
+        border-right: none;
+      }
+
+      .photo-box {
+        height: 280px;
+        border-radius: 0;
+        border-left: none;
+        border-right: none;
+      }
+
+      .dept-name {
+        padding: 8px 16px;
+        font-size: 0.7rem;
+        width: 90%;
+      }
+
+      .hero-title {
+        font-size: clamp(2.5rem, 12vw, 4rem);
       }
 
       .hero-overlay {
@@ -686,7 +790,7 @@
       }
 
       .btn-register {
-        padding: 14px 32px;
+        padding: 14px 28px;
         font-size: 0.85rem;
       }
 
@@ -732,13 +836,58 @@
 
     <div class="hero-overlay">
       <div class="hero-badge">⚡ EEE Department Presents</div>
-      <h1 class="hero-title">ELECTO HACKER</h1>
+      <h1 class="hero-title">ELECTO HACK</h1>
       <div class="hero-title-underline"></div>
       <p class="hero-subtitle">National Level Technical Hackathon · 2026</p>
       <a href="https://docs.google.com/forms/d/e/1FAIpQLSeeZ9AZ0MOQqdCH31u86B8zk-RxSDWGqC040WAs2ME2tI2AkQ/viewform?usp=header"
         target="_blank" rel="noopener noreferrer" class="btn-register" id="register-now-btn">
         <span class="btn-icon">⚡</span> Register Now
       </a>
+    </div>
+  </section>
+
+  <div class="electric-divider"></div>
+
+  <!-- ═══════════════ DOMAINS ═══════════════ -->
+  <section class="domain-section">
+    <div class="section-inner">
+      <div class="section-heading">
+        <h2>⚡ Focus Domains</h2>
+        <p>Innovation Frontiers for 2026</p>
+      </div>
+
+      <div class="domain-grid">
+        <div class="domain-card">
+          <div class="domain-icon">📡</div>
+          <div class="domain-name">IoT based energy monitoring system</div>
+        </div>
+        <div class="domain-card">
+          <div class="domain-icon">🚁</div>
+          <div class="domain-name">Drone power line inspection</div>
+        </div>
+        <div class="domain-card">
+          <div class="domain-icon">🧠</div>
+          <div class="domain-name">AI based fault detection in power transmission line</div>
+        </div>
+        <div class="domain-card">
+          <div class="domain-icon">🚚</div>
+          <div class="domain-name">Transport & logistics (AI & IoT based)</div>
+        </div>
+        <div class="domain-card">
+          <div class="domain-icon">⚡</div>
+          <div class="domain-name">AI & machine learning in power system</div>
+        </div>
+        <div class="domain-card">
+          <div class="domain-icon">👣</div>
+          <div class="domain-name">Energy harvest in foot step generation</div>
+        </div>
+      </div>
+
+      <div style="text-align: center;">
+        <a href="Domains%20and%20Problem%20Statements.pdf" target="_blank" class="btn-download">
+          <span>📥</span> Download Full Problem Statement
+        </a>
+      </div>
     </div>
   </section>
 
@@ -802,7 +951,7 @@
   <!-- ═══════════════ FOOTER ═══════════════ -->
   <footer>
     <p class="footer-text">
-      &copy; 2026 <span>ELECTO HACKER</span> · Department of Electrical &amp; Electronics Engineering<br />
+      &copy; 2026 <span>ELECTO HACK</span> · Department of Electrical &amp; Electronics Engineering<br />
       P.T. Lee Chengalvaraya Naicker College of Engineering and Technology, Kancheepuram
     </p>
   </footer>
